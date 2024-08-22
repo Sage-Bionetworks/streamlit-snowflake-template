@@ -1,5 +1,5 @@
 ## Introduction
-This area of the repository serves as a template for developing your own Streamlit application for internal use within Sage Bionetworks.
+This repository serves as a template for developing your own Streamlit application for internal use within Sage Bionetworks.
 The template is designed to source data from the databases in Snowflake and compose a dashboard using the various tools provided by [Streamlit](https://docs.streamlit.io/)
 and plotly.
 
@@ -7,7 +7,7 @@ Below is the directory structure for all the components within `streamlit_templa
 each component within `streamlit_template`, and how to use these components to design your own application and deploy via an AWS EC2 instance.
 
 ```
-streamlit_template/
+streamlit-snowflake-template/
 ├── .streamlit/
 │   ├── config.toml
 │   └── example_secrets.toml
@@ -29,7 +29,7 @@ streamlit_template/
 
 ### 1. Setup and Enable Access to Snowflake 
 
-- Create a fork of this repository under your GitHub user account.
+- Create a new repository from this template under the `Sage-Bionetworks` organization on GitHub.
 - Within the `.streamlit` folder, you will need a file called `secrets.toml` which will be read by Streamlit before making communications with Snowflake.
 Use the contents in `example_secrets.toml` as a syntax guide for how `secrets.toml` should be set up. See the [Snowflake documentation](https://docs.snowflake.com/en/user-guide/admin-account-identifier#using-an-account-name-as-an-identifier) for how to find your
 account name. **Note:** If you use the `Copy account identifier` button it will copy data in the format of `orgname.account_name`, update it to be `orgname-account_name`.
