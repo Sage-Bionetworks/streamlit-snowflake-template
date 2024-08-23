@@ -8,9 +8,8 @@
             "module": "streamlit",
             "args": [
                 "run",
-                "${workspaceFolder}/streamlit_template/app.py"
+                "app.py"
             ],
-            "cwd": "${workspaceFolder}/streamlit_template",
             "console": "integratedTerminal",
             "justMyCode": true
         },
@@ -20,9 +19,8 @@
             "request": "launch",
             "module": "pytest",
             "args": [
-                "${workspaceFolder}/streamlit_template/tests/test_app.py"
+                "tests/test_app.py"
             ],
-            "cwd": "${workspaceFolder}/streamlit_template",
             "console": "integratedTerminal",
             "justMyCode": false
         },
