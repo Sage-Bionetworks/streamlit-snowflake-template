@@ -31,36 +31,19 @@ def app():
         "app.py", default_timeout=DEFAULT_TIMEOUT
     ).run()
 
+def test_selectbox(app):
+    """Ensure that the correct selections are available from the selectbox."""
 
-def test_monthly_overview(app):
-    """
-    Ensure that the Monthly Overview section is being displayed
-    with the appropriate labels in the right order.
-    """
+    selectbox_options = app.selectbox[0].options
 
-    # Access the Monthly Overview columns in Row 1
-    total_storage_occupied = app.columns[0].children[0]
-    avg_project_size = app.columns[1].children[0]
-    annual_cost = app.columns[2].children[0]
+    assert set(selectbox_options) == set(["Dataframe", "Line plot", "Bar plot"]), f"Incorrect selectbox options. Got {set(selectbox_options)}."
 
-    # Check that the labels are correct for each metric
-    assert total_storage_occupied.label == "Total Storage Occupied"
-    assert avg_project_size.label == "Avg. Project Size"
-    assert annual_cost.label == "Annual Cost"
+def test_outputs(app):
+    """Ensure that the selectbox selections return outputs."""
 
+    # get selectbox options
+    selectbox_options = app.selectbox[0].options
 
-def test_plotly_charts(app):
-    """Ensure both plotly charts are being displayed."""
-
-    plotly_charts = app.get("plotly_chart")
-
-    assert plotly_charts is not None
-    assert len(plotly_charts) == 2
-
-
-def test_dataframe(app):
-    """Ensure that the dataframe is being displayed."""
-
-    dataframe = app.dataframe
-    assert dataframe is not None
-    assert len(dataframe) == 1
+    for option in selectbox_options:
+        output = app.selectbox[0].set_value(option).run()
+        assert output is not None
