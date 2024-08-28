@@ -29,7 +29,7 @@ def app(selected_plot):
     # -------------------------------------------------------------------------
 
     if selected_plot == "Dataframe":
-        st.write("### User Growth Dataframe\nHere we display the cumulative growth of unique users over the years in a straight-forward dataframe. Each row represents the total number of users up to and including that year, allowing you to see how user account creation has increased over time.")
+        st.markdown("### User Growth Dataframe\nHere we display the cumulative growth of unique users over the years in a straight-forward dataframe. Each row represents the total number of users up to and including that year, allowing you to see how user account creation has increased over time.")
         st.dataframe(users_trend_df,
                      hide_index=True,
                      width=600,
@@ -44,11 +44,11 @@ def app(selected_plot):
                     )
 
     if selected_plot == "Line plot":
-        st.write("### Yearly User Growth Trend\nThis line plot illustrates the growth trend of unique users over the years. The dots on the line represent the total number of users up to the end of each year, providing a clear view of how user growth has progressed over time.")
+        st.markdown("### Yearly User Growth Trend\nThis line plot illustrates the growth trend of unique users over the years. The dots on the line represent the total number of users up to the end of each year, providing a clear view of how user growth has progressed over time.")
         st.plotly_chart(scatter_plot_yearly_unique_users(users_trend_df))
 
     if selected_plot == "Bar plot":
-        st.write("### Yearly User Growth with Percentage of Total\nThis bar plot shows the cumulative number of unique users up to the end of each year. The overlaid line indicates the percentage of total users achieved by that year, giving you a sense of growth relative to the overall total.")
+        st.markdown("### Yearly User Growth with Percentage of Total\nThis bar plot shows the cumulative number of unique users up to the end of each year. The overlaid line indicates the percentage of total users achieved by that year, giving you a sense of growth relative to the overall total.")
         st.plotly_chart(bar_plot_yearly_unique_users(users_trend_df))
         
 
