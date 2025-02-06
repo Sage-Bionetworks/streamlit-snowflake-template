@@ -25,6 +25,30 @@ streamlit-snowflake-template/
 └── style.css
 ```
 
+## Requirements & Installation
+
+* Python 3.9 - 3.11*
+* [Snowflake account]
+
+<sub>\*[Snowpark Python] currently only supports these Python versions</sub>
+
+For best practice, use [miniconda], [Anaconda], or [virtualenv] to create a Python 3.9, 3.10, or 3.11 environment, then install the app dependencies.  Here is an example using miniconda:
+
+```
+# Create a new env and activate it
+conda create -n streamlit-app python=3.11 -y
+conda activate streamlit-app
+
+# Install dependencies with pip
+pip install -r requirements.txt
+```
+
+[Snowflake account]: https://signup.snowflake.com/
+[Snowpark Python]: https://docs.snowflake.com/en/developer-guide/snowpark/python/index
+[miniconda]: https://docs.conda.io/en/latest/miniconda.html
+[Anaconda]: https://www.anaconda.com/
+[virtualenv]: https://docs.python.org/3/tutorial/venv.html
+
 ## Create your own Streamlit application
 
 ### 1. Setup and Enable Access to Snowflake 
@@ -35,12 +59,23 @@ Use the contents in `example_secrets.toml` as a syntax guide for how `secrets.to
 account name. **Note:** If you use the `Copy account identifier` button it will copy data in the format of `orgname.account_name`, update it to be `orgname-account_name`.
 - Test your connection to Snowflake by running the example Streamlit app at the base of this directory. This will launch the application on port 8501, the default port for Streamlit applications.
    
-   ```
-   streamlit run app.py
-   ```
+  ```
+  streamlit run app.py
+  ```
+
+  If you receive the following error during local deployment:
+
+  ```
+  No active warehouse selected in the current session - Select an active warehouse with the 'use warehouse' command
+  ```
+
+  you may need to designate a default warehouse for your Snowflake account. The simplest way is to log into Snowflake via your web browser, open a new SQL Worksheet, and select a warehouse. You'll then be asked if you want to set this as your default warehouse.
+
+  If the error continues after setting a default warehouse, check with an admin to confirm your user permissions.
 
 > [!CAUTION]
 > Do not commit your `secrets.toml` file to your forked repository. Keep your credentials secure and do not expose them to the public.
+
 
 ### 2. Build your Queries
 
