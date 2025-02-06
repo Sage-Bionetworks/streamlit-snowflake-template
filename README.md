@@ -25,6 +25,13 @@ streamlit-snowflake-template/
 └── style.css
 ```
 
+## Requirements & Installation
+
+* Python 3.9 - 3.11*
+* [Snowflake account]
+
+<sub>\*[Snowpark Python] currently only supports these Python versions</sub>
+
 ## Create your own Streamlit application
 
 ### 1. Setup and Enable Access to Snowflake 
