@@ -32,6 +32,23 @@ streamlit-snowflake-template/
 
 <sub>\*[Snowpark Python] currently only supports these Python versions</sub>
 
+For best practice, use [miniconda], [Anaconda], or [virtualenv] to create a Python 3.9, 3.10, or 3.11 environment, then install the app dependencies.  Here is an example using miniconda:
+
+```
+# Create a new env and activate it
+conda create -n streamlit-app python=3.11 -y
+conda activate streamlit-app
+
+# Install dependencies with pip
+pip install -r requirements.txt
+```
+
+[Snowflake account]: https://signup.snowflake.com/
+[Snowpark Python]: https://docs.snowflake.com/en/developer-guide/snowpark/python/index
+[miniconda]: https://docs.conda.io/en/latest/miniconda.html
+[Anaconda]: https://www.anaconda.com/
+[virtualenv]: https://docs.python.org/3/tutorial/venv.html
+
 ## Create your own Streamlit application
 
 ### 1. Setup and Enable Access to Snowflake 
