@@ -69,7 +69,7 @@ account name. **Note:** If you use the `Copy account identifier` button it will 
   No active warehouse selected in the current session - Select an active warehouse with the 'use warehouse' command
   ```
 
-  you may need to designate a default warehouse for your Snowflake account. The simplest way is to log into Snowflake via your web browser, open a new SQL Worksheet, and select a warehouse. You'll then be asked if you want to set this as your default warehouse.
+  you may need to designate a default warehouse for your Snowflake account. The simplest way is to log into Snowflake via your web browser, open a new SQL Worksheet, and select a warehouse. You'll then be asked if you want to set this as your default warehouse.  You can also configure your default warehouse by going to your **Profile** > **Default role & warehouse**.
 
   If the error continues after setting a default warehouse, check with an admin to confirm your user permissions.
 
@@ -205,29 +205,74 @@ For further instructions on how to deploy your Docker image to the GitHub Contai
 
 ### 7. Launch your Application on AWS EC2
 
-- Create an EC2: Linux Docker product from the Sage Service Catalog.
-- Go to _Provisioned Products_ in the menu on the left-hand-side.
-- Once your EC2 product's `status` is set to `Available`, click it and navigate to the _Events_ tab.
-- Click the URL next to `ConnectionURI` to launch a shell session in your instance.
-- Navigate to your home directory (`cd ~`).
-- Clone your repository in your desired working directory. Example:
+- **Provision and Access an EC2 Instance**
+
+  Create an **EC2 Linux Docker** product from the Sage Service Catalog.  Adjust the "Instance Type" and "Disk Size" as needed for your application's requirements; for most applications, the default values are generally sufficient.
+
+  Once the instance's status becomes "Available", click on it and go to the _Events_ tab.  Click on the **ConnectionURI** URL to launch a shell session in your instance.
+
+- **Re-create Your `secrets.toml` File**
+
+  While in the shell session, navigate to your home directory:
+  
+  ```console
+  cd ~
   ```
-  git clone https://github.com/<your-username>/snowflake.git
+  
+  then either:
+
+    * clone your repository, and copy `example_secrets.toml` to `secrets.toml`
+    * create a new file called `secrets.toml`
+  
+  You may use the `vi` editor to create/edit the file:
+
+  ```console
+  vi secrets.toml
   ```
-  Replace `<your-username>` with the user that the forked repository is under.
-- Create your `secrets.toml` file again. By default, the instance should already have `vi` available to use as an editor.
-- Build your Docker image, either from the `Dockerfile` in the repository, or by pulling down your image from the GitHub Container Registry.
-- Run your Docker container from the image, and make sure to have your `secrets.toml` (in the current working directory) mounted and the 8501 port specified, like so:
+
+- **Run Your Docker Container**
+
+  If you haven't already Dockerized and pushed your application (as described in [6. Dockerize your Application]), build your Docker image from the `Dockerfile` within your repository's working directory:
+
+  ```console
+  docker build -t <image_name>:<tag> .
   ```
+
+  Run your Docker container in interative mode (`-it`), mounting your `secrets.toml` and specifying 8501 port. For example, assuming you are in the same working directory as `secrets.toml`:
+
+  ```console
   docker run \
-    -p 8501:8501 \
+    -it \
     -v $PWD/secrets.toml:/.streamlit/secrets.toml \
+    -p 8501:8501 \
     <image name>
   ```
-- Now your Streamlit application should be sharable via the private IP address of the EC2 instance. To find the private IP address, navigate back to the _Events_ tab when viewing your provisioned EC2: Linux Docker product, and scroll down to `EC2InstancePrivateIpAddress`. Let's say your EC2 instance's private IP address is 22.22.22.222. The URL you can share with users to access the Streamlit app would be http://22.22.22.222:8501/. **Remember that this is a private IP address, therefore your Streamlit app can only be viewed by those connected to Sage's internal network.**
 
-> [!TIP]
-> If you would like to leave the app running after you close your shell session, be sure to run with the container detached (i.e. Have `-d` somewhere in the `docker run` command)
+- **Access Your Newly-Deployed App**
+
+  Congrats, your Streamlit app is now deployed at the private IP address of the EC2 instance! 🎉
+
+  To find the private IP address, return to the _Events_ tab of your provisioned EC2 product and look for **EC2InstancePrivateIpAddress**. The URL for your app will be `http://<private-ip-address>:8501/`. For example, if the private IP is `22.22.22.222`, the URL will be `http://22.22.22.222:8501/`.
+
+> [!IMPORTANT]
+> This is a private IP address, so users **must** be connected to Sage's internal network via VPN to access the app.
+
+- **Initial Login**
+
+  Before sharing the app with others, initiate the authentication process manually (since Docker containers can't automatically open a browser for the `externalbrowser` authenticator). This step will only need to happen once (unless the cache gets cleared).
+  
+  First, access your Streamlit app via the private IP address in order to trigger a login request. Return to your EC2 instance's shell session; you should see a message similar to this:
+
+  ```
+  Initiating login request with your identity provider. [truncated]
+  Going to open: https://some-link.com to authenticate...
+  We were unable to open a browser window for you, please open the url above manually then paste the URL you are redirected to into the terminal.
+  ```
+
+  Copy the provided URL into a new browser and follow the prompt.  After logging in, you may get a page that says "This site can't be reached" which is expected.  Copy the new URL from the browser (which now contains a token) and paste it into your shell session.  Return to your Streamlit app; you should now be connected to Snowflake.
+
+
+[6. Dockerize your Application]: #6-dockerize-your-application
 
 ## Additional Tips: Leveraging VSCode for Development
 If you would like to leverage VSCode to debug and test your application, rather than working with `streamlit` and `pytest` on the command line, follow the instructions below:
