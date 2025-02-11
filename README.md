@@ -224,10 +224,17 @@ For further instructions on how to deploy your Docker image to the GitHub Contai
     -v $PWD/secrets.toml:/.streamlit/secrets.toml \
     <image name>
   ```
-- Now your Streamlit application should be sharable via the private IP address of the EC2 instance. To find the private IP address, navigate back to the _Events_ tab when viewing your provisioned EC2: Linux Docker product, and scroll down to `EC2InstancePrivateIpAddress`. Let's say your EC2 instance's private IP address is 22.22.22.222. The URL you can share with users to access the Streamlit app would be http://22.22.22.222:8501/. **Remember that this is a private IP address, therefore your Streamlit app can only be viewed by those connected to Sage's internal network.**
+  Before sharing the app with others, initiate the authentication process manually (since Docker containers can't automatically open a browser for the `externalbrowser` authenticator). This step will only need to happen once (unless the cache gets cleared).
+  
+  First, access your Streamlit app via the private IP address in order to trigger a login request. Return to your EC2 instance's shell session; you should see a message similar to this:
 
-> [!TIP]
-> If you would like to leave the app running after you close your shell session, be sure to run with the container detached (i.e. Have `-d` somewhere in the `docker run` command)
+  ```
+  Initiating login request with your identity provider. [truncated]
+  Going to open: https://some-link.com to authenticate...
+  We were unable to open a browser window for you, please open the url above manually then paste the URL you are redirected to into the terminal.
+  ```
+
+  Copy the provided URL into a new browser and follow the prompt.  After logging in, you may get a page that says "This site can't be reached" which is expected.  Copy the new URL from the browser (which now contains a token) and paste it into your shell session.  Return to your Streamlit app; you should now be connected to Snowflake.
 
 ## Additional Tips: Leveraging VSCode for Development
 If you would like to leverage VSCode to debug and test your application, rather than working with `streamlit` and `pytest` on the command line, follow the instructions below:
