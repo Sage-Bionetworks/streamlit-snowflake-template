@@ -254,8 +254,8 @@ For further instructions on how to deploy your Docker image to the GitHub Contai
 
   To find the private IP address, return to the _Events_ tab of your provisioned EC2 product and look for **EC2InstancePrivateIpAddress**. The URL for your app will be `http://<private-ip-address>:8501/`. For example, if the private IP is `22.22.22.222`, the URL will be `http://22.22.22.222:8501/`.
 
-    > [!IMPORTANT]
-    > This is a private IP address, so users **must** be connected to Sage's internal network via VPN to access the app.
+> [!IMPORTANT]
+> This is a private IP address, so users **must** be connected to Sage's internal network via VPN to access the app.
 
 - **Initial Login**
 
