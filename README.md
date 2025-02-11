@@ -69,7 +69,7 @@ account name. **Note:** If you use the `Copy account identifier` button it will 
   No active warehouse selected in the current session - Select an active warehouse with the 'use warehouse' command
   ```
 
-  you may need to designate a default warehouse for your Snowflake account. The simplest way is to log into Snowflake via your web browser, open a new SQL Worksheet, and select a warehouse. You'll then be asked if you want to set this as your default warehouse.
+  you may need to designate a default warehouse for your Snowflake account. The simplest way is to log into Snowflake via your web browser, open a new SQL Worksheet, and select a warehouse. You'll then be asked if you want to set this as your default warehouse.  You can also configure your default warehouse by going to your **Profile** > **Default role & warehouse**.
 
   If the error continues after setting a default warehouse, check with an admin to confirm your user permissions.
 
