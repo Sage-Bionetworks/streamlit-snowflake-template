@@ -1,5 +1,5 @@
 > [!NOTE]
-> For security and maintenance we are shifting towards our [snowflake monorepo](https://github.com/Sage-Bionetworks/snowflake/blob/dev/STREAMLIT.md) to deploy streamlit apps within snowflake. Please consult DPE before deploying any streamlit application that is served over the internet as Snowflake should not be used as the backend.
+> For security and maintenance we are shifting towards our [snowflake monorepo](https://github.com/Sage-Bionetworks/snowflake/blob/dev/STREAMLIT.md) to deploy streamlit apps within snowflake. Please consult DPE before deploying any streamlit application that is served over the internet as Snowflake should not be used as the backend.  This repository is now archived.
 
 ## Introduction
 This repository serves as a template for developing your own Streamlit application for internal use within Sage Bionetworks.
